@@ -6,7 +6,7 @@ import { createScenarioReport, summarizeScenarioReport } from "./scenarios.mjs";
 
 const commandOutputLimit = 64 * 1024 * 1024;
 const metricPrefix = "PROOF_TIME|";
-const unitPrefix = "proof-pudding-";
+const unitPrefix = "csharp-pudding-";
 
 export async function createRunContext(repoRoot, workerLimit, memoryBudgetMiB) {
   const stamp = new Date().toISOString().replaceAll(/[:.]/gu, "-");
@@ -64,14 +64,14 @@ export function recoverOrphanedProofUnits(context) {
       assert.equal(
         processExists(ownerPid),
         false,
-        `Another Proof Pudding verifier owns active unit ${unit}.`,
+        `Another C# Pudding verifier owns active unit ${unit}.`,
       );
     }
     stopUnit(unit);
     resetUnit(unit);
     recordEvidence(context, `RECOVERED_ORPHAN_UNIT ${unit}`);
   }
-  assert.deepEqual(listProofUnits(), [], "Orphaned Proof Pudding units survived recovery.");
+  assert.deepEqual(listProofUnits(), [], "Orphaned C# Pudding units survived recovery.");
 }
 
 export async function runLoggedTask(context, id, action) {
@@ -268,7 +268,7 @@ export async function cleanupTransientUnits(context) {
   assert.deepEqual(
     listProofUnits().filter((unit) => proofUnitOwnerPid(unit) === process.pid),
     [],
-    "Current-run Proof Pudding units survived cleanup.",
+    "Current-run C# Pudding units survived cleanup.",
   );
 }
 
@@ -283,7 +283,7 @@ export async function writeConsolidatedReport(context, expectedProjectCount) {
   const scenarioReportPath = resolve(context.runRoot, "scenarios.json");
   await writeFile(scenarioReportPath, `${JSON.stringify(scenarioReport, null, 2)}\n`, "utf8");
   let report = [
-    "PROOF_PUDDING_VERIFICATION",
+    "CSHARP_PUDDING_VERIFICATION",
     `RUN_ROOT=${context.runRoot}`,
     `WORKERS=${context.workerLimit}`,
     `MEMORY_BUDGET_MIB=${context.memoryBudgetMiB}`,
@@ -320,7 +320,7 @@ export async function writeConsolidatedReport(context, expectedProjectCount) {
     await appendFile(context.reportPath, `\n===== ${result.id} =====\n`, "utf8");
     await appendFile(context.reportPath, await readFile(result.logPath), "utf8");
   }
-  console.log(`Proof Pudding: ${passed}/${context.results.length} tasks passed; ${failed} failed.`);
+  console.log(`C# Pudding: ${passed}/${context.results.length} tasks passed; ${failed} failed.`);
   console.log(`Consolidated report: ${context.reportPath}`);
   return { passed, failed, projectResults: projectResults.length };
 }
@@ -451,7 +451,7 @@ function listProofUnits() {
     ["--user", "list-units", "--all", "--no-legend", "--plain", `${unitPrefix}*.scope`],
     { encoding: "utf8" },
   );
-  assert.equal(result.status, 0, `Unable to inventory Proof Pudding units: ${result.stderr}`);
+  assert.equal(result.status, 0, `Unable to inventory C# Pudding units: ${result.stderr}`);
   return result.stdout
     .split(/\r?\n/u)
     .map((line) => line.trim().split(/\s+/u)[0])
@@ -461,8 +461,8 @@ function listProofUnits() {
 }
 
 function proofUnitOwnerPid(unit) {
-  const match = /^proof-pudding-([1-9][0-9]*)-/u.exec(unit);
-  assert.notEqual(match, null, `Proof Pudding unit has no owner PID: ${unit}.`);
+  const match = /^csharp-pudding-([1-9][0-9]*)-/u.exec(unit);
+  assert.notEqual(match, null, `C# Pudding unit has no owner PID: ${unit}.`);
   return Number.parseInt(match[1], 10);
 }
 

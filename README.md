@@ -1,4 +1,4 @@
-# Proof Is in the Pudding
+# csharp-pudding
 
 This repository contains downstream proofs for Tsonic’s C# target. Every project is real TypeScript input, checked through the selected source contract, emitted as C#, and built with the .NET SDK. Executables must produce an exact finite result or pass an HTTP behavior contract. Workspace libraries are compiled and exercised through their executable consumers.
 
