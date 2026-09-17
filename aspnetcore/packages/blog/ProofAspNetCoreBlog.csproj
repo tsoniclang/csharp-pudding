@@ -6,17 +6,17 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <OutputType>Exe</OutputType>
     <AssemblyName>ProofAspNetCoreBlog</AssemblyName>
-    <TsonicCsharpRuntimeAssembly Condition="'$(TsonicCsharpRuntimeAssembly)' == ''">$(MSBuildThisFileDirectory)../../node_modules/@tsonic/csharp-runtime/runtimes/net10.0/Tsonic.CSharp.Runtime.dll</TsonicCsharpRuntimeAssembly>
-    <TsonicCsharpJsAssembly Condition="'$(TsonicCsharpJsAssembly)' == ''">$(MSBuildThisFileDirectory)../../node_modules/@tsonic/csharp-js/runtimes/net10.0/Tsonic.CSharp.Js.dll</TsonicCsharpJsAssembly>
+    <TsonicCsharpRuntimeProject Condition="'$(TsonicCsharpRuntimeProject)' == ''">$(MSBuildThisFileDirectory)runtime/Tsonic.CSharp.Runtime.csproj</TsonicCsharpRuntimeProject>
+    <TsonicCsharpJsProject Condition="'$(TsonicCsharpJsProject)' == ''">$(MSBuildThisFileDirectory)runtime/Tsonic.CSharp.Js.csproj</TsonicCsharpJsProject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="out/csharp/**/*.cs" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <Reference Include="Tsonic.CSharp.Runtime" HintPath="$(TsonicCsharpRuntimeAssembly)" />
-    <Reference Include="Tsonic.CSharp.Js" HintPath="$(TsonicCsharpJsAssembly)" />
+    <ProjectReference Include="$(TsonicCsharpRuntimeProject)" />
+    <ProjectReference Include="$(TsonicCsharpJsProject)" />
   </ItemGroup>
   <Target Name="ValidateTsonicRuntime" BeforeTargets="ResolveReferences">
-    <Error Condition="!Exists('$(TsonicCsharpRuntimeAssembly)')" Text="Tsonic.CSharp.Runtime.dll was not found at '$(TsonicCsharpRuntimeAssembly)'." />
-    <Error Condition="!Exists('$(TsonicCsharpJsAssembly)')" Text="Tsonic.CSharp.Js.dll was not found at '$(TsonicCsharpJsAssembly)'." />
+    <Error Condition="!Exists('$(TsonicCsharpRuntimeProject)')" Text="Tsonic.CSharp.Runtime source project was not found at '$(TsonicCsharpRuntimeProject)'." />
+    <Error Condition="!Exists('$(TsonicCsharpJsProject)')" Text="Tsonic.CSharp.Js source project was not found at '$(TsonicCsharpJsProject)'." />
   </Target>
 </Project>

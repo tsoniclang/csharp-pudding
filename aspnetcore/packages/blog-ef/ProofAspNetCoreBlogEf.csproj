@@ -7,8 +7,8 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>ProofAspNetCoreBlogEf</AssemblyName>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <TsonicCsharpRuntimeAssembly Condition="'$(TsonicCsharpRuntimeAssembly)' == ''">$(MSBuildThisFileDirectory)../../node_modules/@tsonic/csharp-runtime/runtimes/net10.0/Tsonic.CSharp.Runtime.dll</TsonicCsharpRuntimeAssembly>
-    <TsonicCsharpJsAssembly Condition="'$(TsonicCsharpJsAssembly)' == ''">$(MSBuildThisFileDirectory)../../node_modules/@tsonic/csharp-js/runtimes/net10.0/Tsonic.CSharp.Js.dll</TsonicCsharpJsAssembly>
+    <TsonicCsharpRuntimeProject Condition="'$(TsonicCsharpRuntimeProject)' == ''">$(MSBuildThisFileDirectory)runtime/Tsonic.CSharp.Runtime.csproj</TsonicCsharpRuntimeProject>
+    <TsonicCsharpJsProject Condition="'$(TsonicCsharpJsProject)' == ''">$(MSBuildThisFileDirectory)runtime/Tsonic.CSharp.Js.csproj</TsonicCsharpJsProject>
     <TsonicProviderReferenceDirectory>$(MSBuildThisFileDirectory).tests/provider-references</TsonicProviderReferenceDirectory>
   </PropertyGroup>
   <ItemGroup>
@@ -16,12 +16,12 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
-    <Reference Include="Tsonic.CSharp.Runtime" HintPath="$(TsonicCsharpRuntimeAssembly)" />
-    <Reference Include="Tsonic.CSharp.Js" HintPath="$(TsonicCsharpJsAssembly)" />
+    <ProjectReference Include="$(TsonicCsharpRuntimeProject)" />
+    <ProjectReference Include="$(TsonicCsharpJsProject)" />
   </ItemGroup>
   <Target Name="ValidateTsonicRuntime" BeforeTargets="ResolveReferences">
-    <Error Condition="!Exists('$(TsonicCsharpRuntimeAssembly)')" Text="Tsonic.CSharp.Runtime.dll was not found at '$(TsonicCsharpRuntimeAssembly)'." />
-    <Error Condition="!Exists('$(TsonicCsharpJsAssembly)')" Text="Tsonic.CSharp.Js.dll was not found at '$(TsonicCsharpJsAssembly)'." />
+    <Error Condition="!Exists('$(TsonicCsharpRuntimeProject)')" Text="Tsonic.CSharp.Runtime source project was not found at '$(TsonicCsharpRuntimeProject)'." />
+    <Error Condition="!Exists('$(TsonicCsharpJsProject)')" Text="Tsonic.CSharp.Js source project was not found at '$(TsonicCsharpJsProject)'." />
   </Target>
   <Target Name="PrepareTsonicProviderReferences" DependsOnTargets="ResolveReferences">
     <ItemGroup>

@@ -92,6 +92,15 @@
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.12"
         }
+      },
+      "tsonic.csharp.js": {
+        "type": "Project",
+        "dependencies": {
+          "Tsonic.CSharp.Runtime": "[0.0.6, )"
+        }
+      },
+      "tsonic.csharp.runtime": {
+        "type": "Project"
       }
     }
   }

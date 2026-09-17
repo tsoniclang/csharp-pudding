@@ -19,6 +19,8 @@ const bannedGeneratedRuntimeSemantics = [
 
 export async function executeProject(context, task, project, serverPorts) {
   const projectDirectory = resolve(context.stageRoot, project.path);
+  const configuration = JSON.parse(await readFile(resolve(projectDirectory, "tsonic.json"), "utf8"));
+  const framework = configuration.targets.find((target) => target.id === "csharp")?.options?.targetFramework ?? "net10.0";
   const commonEnvironment = {
     ...dotnetIsolationEnvironment,
     LANG: "C.UTF-8",
@@ -28,6 +30,17 @@ export async function executeProject(context, task, project, serverPorts) {
 
   if (project.prepareProviderReferences) {
     const userProject = resolve(projectDirectory, project.projectFile);
+    if (context.selectedFramework !== undefined) {
+      await runCommand(context, task, {
+        id: `${project.id}-resolve-selected-framework-lock`,
+        executable: "dotnet",
+        args: ["restore", userProject, "--force-evaluate", "--nologo", "-nodeReuse:false"],
+        cwd: projectDirectory,
+        memoryMiB: 2_048,
+        timeoutMinutes: 10,
+        environment: commonEnvironment,
+      });
+    }
     await runCommand(context, task, {
       id: `${project.id}-restore-provider-project`,
       executable: "dotnet",
@@ -96,8 +109,8 @@ export async function executeProject(context, task, project, serverPorts) {
 
   if (project.kind === "library") return;
   const dll = project.projectFile === undefined
-    ? resolve(projectDirectory, "out/csharp/bin/Debug/net10.0", `${project.assembly}.dll`)
-    : resolve(projectDirectory, "bin/Debug/net10.0", `${project.assembly}.dll`);
+    ? resolve(projectDirectory, "out/csharp/bin/Debug", framework, `${project.assembly}.dll`)
+    : resolve(projectDirectory, "bin/Debug", framework, `${project.assembly}.dll`);
   await access(dll, constants.R_OK);
 
   if (project.kind === "finite") {

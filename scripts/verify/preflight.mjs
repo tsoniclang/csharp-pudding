@@ -223,9 +223,9 @@ export async function buildPrerequisites(context) {
     await runLoggedTask(context, step.id, (task) => runCommand(context, task, step));
   }
   for (const path of [
-    resolve(localRepositories.runtime, "runtimes/net10.0/Tsonic.CSharp.Runtime.dll"),
-    resolve(localRepositories.js, "runtimes/net10.0/Tsonic.CSharp.Js.dll"),
-    resolve(localRepositories.node, "runtimes/net10.0/Tsonic.CSharp.Node.dll"),
+    resolve(localRepositories.runtime, "src/Tsonic.CSharp.Runtime/Tsonic.CSharp.Runtime.csproj"),
+    resolve(localRepositories.js, "src/Tsonic.CSharp.Js/Tsonic.CSharp.Js.csproj"),
+    resolve(localRepositories.node, "csharp/src/Tsonic.CSharp.Node/Tsonic.CSharp.Node.csproj"),
   ]) {
     await realpath(path);
     recordEvidence(context, `RUNTIME_ARTIFACT ${path} sha256=${await sha256(path)}`);
