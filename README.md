@@ -138,7 +138,22 @@ for the evidence contract. Inventory inspection is not execution certification.
 
 ## Requirements
 
+The complete verifier can target another installed framework without changing
+authored TypeScript or the checkout's configuration:
+
+```sh
+PROOF_TARGET_FRAMEWORK=net11.0 \
+PROOF_DOTNET_SDK=11.0.100-rc.1.26425.128 \
+node scripts/verify-all.mjs
+```
+
+Use an exact version shown by `dotnet --list-sdks`. Selection applies to the
+isolated proof stage, including native project references and provider metadata.
+The new framework gets its own resolved NuGet lock before the ordinary locked
+restore and all execution gates. Omitting both variables uses the checkout's
+default .NET 10 configuration.
+
 - Node.js 22 or newer;
-- .NET 10 SDK;
+- .NET 10 SDK for the default proofs, or a later SDK selected for that framework;
 - Linux systemd user scopes for the complete bounded verifier;
 - a NativeAOT-capable toolchain for the current OS/architecture.

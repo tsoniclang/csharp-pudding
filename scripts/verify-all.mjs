@@ -7,6 +7,7 @@ import {
   workerLimit,
 } from "./verify/config.mjs";
 import { executeProject } from "./verify/projects.mjs";
+import { selectStagedFramework } from "./verify/framework.mjs";
 import {
   buildPrerequisites,
   createFreshStage,
@@ -72,7 +73,10 @@ try {
   );
 
   const artifacts = await packExactPackages(context);
-  const staged = await runLoggedTask(context, "stage-fresh-proof-source", () => createFreshStage(context));
+  const staged = await runLoggedTask(context, "stage-fresh-proof-source", async (task) => {
+    await createFreshStage(context);
+    await selectStagedFramework(context, task);
+  });
   assert.equal(staged.status, "passed", "Fresh source staging failed.");
   await installStagedWorkspaces(context, artifacts);
 

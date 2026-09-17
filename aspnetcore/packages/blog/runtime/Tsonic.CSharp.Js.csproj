@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <DirectoryBuildPropsPath>$(MSBuildThisFileDirectory)../../../node_modules/@tsonic/csharp-js/Directory.Build.props</DirectoryBuildPropsPath>
+    <TsonicRuntimeArtifactsPath>$(MSBuildThisFileDirectory)../.tsonic/cache/csharp/runtime/</TsonicRuntimeArtifactsPath>
+    <TsonicCsharpRuntimeProject>$(MSBuildThisFileDirectory)Tsonic.CSharp.Runtime.csproj</TsonicCsharpRuntimeProject>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)../../../node_modules/@tsonic/csharp-js/src/Tsonic.CSharp.Js/Tsonic.CSharp.Js.csproj" />
+</Project>

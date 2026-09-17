@@ -8,13 +8,13 @@
     <AssemblyName>ProofBclHelloWorld</AssemblyName>
     <PublishAot>true</PublishAot>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TsonicCsharpRuntimeAssembly Condition="'$(TsonicCsharpRuntimeAssembly)' == ''">$(MSBuildThisFileDirectory)../../node_modules/@tsonic/csharp-runtime/runtimes/net10.0/Tsonic.CSharp.Runtime.dll</TsonicCsharpRuntimeAssembly>
+    <TsonicCsharpRuntimeProject Condition="'$(TsonicCsharpRuntimeProject)' == ''">$(MSBuildThisFileDirectory)runtime/Tsonic.CSharp.Runtime.csproj</TsonicCsharpRuntimeProject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="out/csharp/**/*.cs" />
-    <Reference Include="Tsonic.CSharp.Runtime" HintPath="$(TsonicCsharpRuntimeAssembly)" />
+    <ProjectReference Include="$(TsonicCsharpRuntimeProject)" />
   </ItemGroup>
   <Target Name="ValidateTsonicRuntime" BeforeTargets="ResolveReferences">
-    <Error Condition="!Exists('$(TsonicCsharpRuntimeAssembly)')" Text="Tsonic.CSharp.Runtime.dll was not found at '$(TsonicCsharpRuntimeAssembly)'." />
+    <Error Condition="!Exists('$(TsonicCsharpRuntimeProject)')" Text="Tsonic.CSharp.Runtime source project was not found at '$(TsonicCsharpRuntimeProject)'." />
   </Target>
 </Project>
