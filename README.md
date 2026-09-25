@@ -86,7 +86,7 @@ dotnet run --project packages/calculator/out/csharp/ProofBclCalculator.csproj
 
 Advanced .NET configuration stays in user-owned `.csproj` files:
 
-- `bcl/packages/hello-world/ProofBclHelloWorld.csproj` owns NativeAOT publication;
+- `native/packages/hello-world/ProofBclHelloWorld.csproj` owns NativeAOT publication;
 - `aspnetcore/packages/blog/ProofAspNetCoreBlog.csproj` owns the ASP.NET framework reference;
 - `aspnetcore/packages/blog-ef/ProofAspNetCoreBlogEf.csproj` owns NuGet versions, the NuGet lock, framework references, and the deterministic package-reference set used by provider reflection.
 

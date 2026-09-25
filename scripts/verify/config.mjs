@@ -51,23 +51,23 @@ export const projectSpecs = Object.freeze([
     timeoutMinutes: 15,
     projectFile: "ProofAspNetCoreBlog.csproj",
   }),
-  project("bcl-calculator", "bcl/packages/calculator", "bcl", "ProofBclCalculator", "finite", "calculator"),
-  project("bcl-fibonacci", "bcl/packages/fibonacci", "bcl", "ProofBclFibonacci", "finite", "fibonacci"),
-  project("bcl-generators-resources", "bcl/packages/generators-resources", "bcl", "ProofBclGeneratorsResources", "finite", "generators-resources"),
-  project("bcl-hello", "bcl/packages/hello-world", "bcl", "ProofBclHelloWorld", "finite", "bcl-typed-locations", {
+  project("bcl-calculator", "native/packages/calculator", "bcl", "ProofBclCalculator", "finite", "calculator"),
+  project("bcl-fibonacci", "native/packages/fibonacci", "bcl", "ProofBclFibonacci", "finite", "fibonacci"),
+  project("bcl-generators-resources", "native/packages/generators-resources", "bcl", "ProofBclGeneratorsResources", "finite", "generators-resources"),
+  project("bcl-hello", "native/packages/hello-world", "bcl", "ProofBclHelloWorld", "finite", "bcl-typed-locations", {
     memoryMiB: 6_144,
     projectFile: "ProofBclHelloWorld.csproj",
     nativeAot: true,
     capabilityDependencies: { "@proof/csharp-memory-abi": "file:../memory-abi" },
   }),
-  project("bcl-high-performance", "bcl/packages/high-performance", "bcl", "ProofBclHighPerformance", "finite", "high-performance"),
-  project("bcl-native-pointers", "bcl/packages/native-pointers", "bcl", "ProofBclNativePointers", "finite", "native-pointers", {
+  project("bcl-high-performance", "native/packages/high-performance", "bcl", "ProofBclHighPerformance", "finite", "high-performance"),
+  project("bcl-native-pointers", "native/packages/native-pointers", "bcl", "ProofBclNativePointers", "finite", "native-pointers", {
     projectFile: "ProofBclNativePointers.csproj",
   }),
-  project("bcl-parallel", "bcl/packages/multithreading", "bcl", "ProofBclMultithreading", "finite", "bcl-parallel", {
+  project("bcl-parallel", "native/packages/multithreading", "bcl", "ProofBclMultithreading", "finite", "bcl-parallel", {
     memoryMiB: 4_096,
   }),
-  project("bcl-todo", "bcl/packages/todolist-api", "bcl", "ProofBclTodoList", "server", "bcl-todo", {
+  project("bcl-todo", "native/packages/todolist-api", "bcl", "ProofBclTodoList", "server", "bcl-todo", {
     memoryMiB: 4_096,
     timeoutMinutes: 15,
   }),
