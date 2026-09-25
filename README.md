@@ -58,7 +58,7 @@ The C# target owns its runtime dependencies transitively. There are no direct pr
 
 | Group | Proofs |
 | --- | --- |
-| `bcl` | Hello World and typed locations, calculator, Fibonacci, generators/resources, native pointers, `Span<T>`/`Memory<T>`, CLR parallel execution, `HttpListener` todo API |
+| `native` | Hello World and typed locations, calculator, Fibonacci, generators/resources, native pointers, `Span<T>`/`Memory<T>`, CLR parallel execution, `HttpListener` todo API |
 | `js` | Hello World, calculator, Fibonacci, Promise-based concurrency, RegExp, notes API, todo API |
 | `nodejs` | Pure-C# Node isolation, file I/O, Promise-based Node concurrency, HTTP server |
 | `aspnetcore` | Minimal API blog and EF Core/SQLite blog using dynamic `@tsonic/dotnet/*` provider declarations |
@@ -71,7 +71,7 @@ The C# target owns its runtime dependencies transitively. There are no direct pr
 Install from a workspace root, never from a child under `packages/*`:
 
 ```sh
-cd bcl
+cd native
 npm install
 npm run build
 ```
