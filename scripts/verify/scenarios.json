@@ -186,6 +186,24 @@
       ]
     },
     {
+      "id": "attributes/checked-invocations",
+      "classification": "unpaired",
+      "contract": "Typed attribute lambdas emit native C# metadata without executing annotation callbacks.",
+      "reason": "Rust attributes expand native macro tokens rather than C# attribute metadata; native proof remains target-specific.",
+      "proofs": [
+        {
+          "project": "bcl-hello",
+          "level": "runtime",
+          "sources": ["native/packages/hello-world/src/App.ts", "native/packages/hello-world/src/attributes.ts"],
+          "assertions": [
+            {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyAttributes()) throw new InvalidOperationException(\"attribute contract failed\");"},
+            {"file":"native/packages/hello-world/src/attributes.ts","contains":"return counter.increment(2) === 3 && counter.display === 3;"}
+          ],
+          "outcome": "The annotated constructor, fields, property, method and parameters compile natively; the unchanged counter behavior passes under JIT and NativeAOT. Target tests independently inspect exact metadata and reject illegal native applications."
+        }
+      ]
+    },
+    {
       "id": "memory/typed-pointer-views",
       "classification": "paired",
       "contract": "Bound/projected pointers preserve identity and hash, defer callbacks, handle absent views and share writes across numeric and boolean projections.",
