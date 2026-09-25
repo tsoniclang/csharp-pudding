@@ -299,12 +299,7 @@ export async function installStagedWorkspaces(context, artifacts) {
       const result = await runLoggedTask(context, `install-${workspace.path}`, async (task) => {
         const selected = [...artifacts.values()].filter((artifact) => !artifact.nodeOnly || workspace.needsNodeCapability);
         const workspaceDirectory = resolve(context.stageRoot, workspace.path);
-        const manifests = [
-          resolve(workspaceDirectory, "package.json"),
-          ...projectSpecs.filter((project) => project.workspacePath === workspace.path)
-            .map((project) => resolve(context.stageRoot, project.path, "package.json")),
-        ];
-        const bindings = bindPackedWorkspaceDependencies(workspaceDirectory, manifests, selected);
+        const bindings = bindPackedWorkspaceDependencies(workspaceDirectory, selected);
         await runCommand(context, task, {
           id: `npm-install-${workspace.path}`,
           executable: "npm",
