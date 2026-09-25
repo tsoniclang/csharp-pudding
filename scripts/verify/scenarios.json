@@ -10,7 +10,7 @@
         {
           "project": "bcl-calculator",
           "level": "runtime",
-          "sources": ["bcl/packages/calculator/src/App.ts"],
+          "sources": ["native/packages/calculator/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"add(x, y) = 13\""}
           ],
@@ -36,7 +36,7 @@
         {
           "project": "bcl-calculator",
           "level": "runtime",
-          "sources": ["bcl/packages/calculator/src/App.ts"],
+          "sources": ["native/packages/calculator/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"subtract(x, y) = 7\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"multiply(x, y) = 30\""},
@@ -67,7 +67,7 @@
         {
           "project": "bcl-fibonacci",
           "level": "runtime",
-          "sources": ["bcl/packages/fibonacci/src/App.ts"],
+          "sources": ["native/packages/fibonacci/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"const values = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];"},
             {"file":"scripts/verify/probes.mjs","contains":"assert.equal(output, expected.join(\"\\n\"));"}
@@ -95,7 +95,7 @@
         {
           "project": "bcl-fibonacci",
           "level": "runtime",
-          "sources": ["bcl/packages/fibonacci/src/App.ts"],
+          "sources": ["native/packages/fibonacci/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"const values = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];"},
             {"file":"scripts/verify/probes.mjs","contains":"\"  fib(40) = 102334155\""}
@@ -122,7 +122,7 @@
         {
           "project": "bcl-generators-resources",
           "level": "runtime",
-          "sources": ["bcl/packages/generators-resources/src/App.ts"],
+          "sources": ["native/packages/generators-resources/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"sync:1,5,done:9\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"delegate:2,inner:5\""},
@@ -141,7 +141,7 @@
         {
           "project": "bcl-generators-resources",
           "level": "runtime",
-          "sources": ["bcl/packages/generators-resources/src/App.ts"],
+          "sources": ["native/packages/generators-resources/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"async:10,12,async-done\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"for-await:10\""}
@@ -158,7 +158,7 @@
         {
           "project": "bcl-generators-resources",
           "level": "runtime",
-          "sources": ["bcl/packages/generators-resources/src/App.ts"],
+          "sources": ["native/packages/generators-resources/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"resources-before-async-exit:RT21UVFOPXYD\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"resources-final:RT21UVFOPXYDA\""}
@@ -176,7 +176,7 @@
         {
           "project": "bcl-generators-resources",
           "level": "runtime",
-          "sources": ["bcl/packages/generators-resources/src/App.ts"],
+          "sources": ["native/packages/generators-resources/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"suppressed:An error was suppressed during resource disposal.:RT21UVFOPXYD\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"top-level-disposed:RT21UVFOPXYDA\""}
@@ -193,11 +193,11 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts","bcl/packages/hello-world/src/pointer-views.ts"],
+          "sources": ["native/packages/hello-world/src/App.ts","native/packages/hello-world/src/pointer-views.ts"],
           "assertions": [
-            {"file":"bcl/packages/hello-world/src/App.ts","contains":"if (!verifyPointerViews()) throw new InvalidOperationException(\"pointer view contract failed\");"},
-            {"file":"bcl/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadPointer(alias) !== 9) return false;"},
-            {"file":"bcl/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 0) || loadPointer(flag)) return false;"}
+            {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyPointerViews()) throw new InvalidOperationException(\"pointer view contract failed\");"},
+            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadPointer(alias) !== 9) return false;"},
+            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 0) || loadPointer(flag)) return false;"}
           ],
           "outcome": "The reached boolean verifier rejects eager callbacks, identity/hash drift or incorrect writes."
         }
@@ -211,12 +211,12 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts","bcl/packages/hello-world/src/native-memory.ts","bcl/packages/memory-abi/index.mjs"],
+          "sources": ["native/packages/hello-world/src/App.ts","native/packages/hello-world/src/native-memory.ts","native/packages/memory-abi/index.mjs"],
           "assertions": [
-            {"file":"bcl/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
-            {"file":"bcl/packages/hello-world/src/native-memory.ts","contains":"if (!equalPointer(original, restored) || hashPointer(original) !== hashPointer(restored)) return false;"},
-            {"file":"bcl/packages/hello-world/src/native-memory.ts","contains":"if (incoming !== 71 || loadPointer(parameter) !== 73) return false;"},
-            {"file":"bcl/packages/hello-world/src/native-memory.ts","contains":"if (!equalRawPointer(nil, undefined) || reinterpretRawPointer(nil, word) !== undefined) return false;"}
+            {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalPointer(original, restored) || hashPointer(original) !== hashPointer(restored)) return false;"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (incoming !== 71 || loadPointer(parameter) !== 73) return false;"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalRawPointer(nil, undefined) || reinterpretRawPointer(nil, word) !== undefined) return false;"}
           ],
           "outcome": "Reached verifier checks writes 9/17/33, retained allocation and field/array replacements, parameter 71/73, optional returns and null raw pointers."
         }
@@ -230,12 +230,12 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts","bcl/packages/hello-world/src/native-memory.ts","bcl/packages/hello-world/src/native-storage.ts"],
+          "sources": ["native/packages/hello-world/src/App.ts","native/packages/hello-world/src/native-memory.ts","native/packages/hello-world/src/native-storage.ts"],
           "assertions": [
-            {"file":"bcl/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
-            {"file":"bcl/packages/hello-world/src/native-memory.ts","contains":"if (!callableReturns() || !verifyNativeStorage()) return false;"},
-            {"file":"bcl/packages/hello-world/src/native-storage.ts","contains":"if (neighbor === undefined || loadPointer(neighbor) !== 8) throw new Error(\"array stride\");"},
-            {"file":"bcl/packages/hello-world/src/native-storage.ts","contains":"return loadPointer(element) === 21 && loadPointer(field) === 22;"}
+            {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!callableReturns() || !verifyNativeStorage()) return false;"},
+            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"if (neighbor === undefined || loadPointer(neighbor) !== 8) throw new Error(\"array stride\");"},
+            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"return loadPointer(element) === 21 && loadPointer(field) === 22;"}
           ],
           "outcome": "Stride 8 selects neighbor 8; retained element/field writes end at 21 and 22."
         }
@@ -249,7 +249,7 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts"],
+          "sources": ["native/packages/hello-world/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"Pointers: 2, 41, 10, 4\""}
           ],
@@ -266,7 +266,7 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts"],
+          "sources": ["native/packages/hello-world/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"Pointers: 2, 41, 10, 4\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"Pointer identity: True, False, True, True, False\""},
@@ -285,9 +285,9 @@
         {
           "project": "bcl-native-pointers",
           "level": "runtime",
-          "sources": ["bcl/packages/native-pointers/src/App.ts","bcl/packages/native-pointers/NativePointerHarness.cs"],
+          "sources": ["native/packages/native-pointers/src/App.ts","native/packages/native-pointers/NativePointerHarness.cs"],
           "assertions": [
-            {"file":"bcl/packages/native-pointers/NativePointerHarness.cs","contains":"int result = App.copyAndRead(&source, &destination, 0);"},
+            {"file":"native/packages/native-pointers/NativePointerHarness.cs","contains":"int result = App.copyAndRead(&source, &destination, 0);"},
             {"file":"scripts/verify/probes.mjs","contains":"assert.equal(output, \"Native pointers: 41, 41\");"}
           ],
           "outcome": "Native harness invokes the generated TS function; exact stdout is Native pointers: 41, 41."
@@ -303,7 +303,7 @@
         {
           "project": "bcl-hello",
           "level": "runtime",
-          "sources": ["bcl/packages/hello-world/src/App.ts"],
+          "sources": ["native/packages/hello-world/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/projects.mjs","contains":"if (project.nativeAot) await verifyNativeAot(context, task, project, projectDirectory, dotnetProject, commonEnvironment);"},
             {"file":"scripts/verify/probes.mjs","contains":"\"Pointer value field: 3\""}
@@ -331,7 +331,7 @@
         {
           "project": "bcl-high-performance",
           "level": "runtime",
-          "sources": ["bcl/packages/high-performance/src/App.ts"],
+          "sources": ["native/packages/high-performance/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"[1, 2, 99, 99, 99, 99, 99, 8, 9, 10]\""},
             {"file":"scripts/verify/probes.mjs","contains":"\"After copy: [100, 200, 300, 0, 0]\""}
@@ -349,7 +349,7 @@
         {
           "project": "bcl-parallel",
           "level": "runtime",
-          "sources": ["bcl/packages/multithreading/src/App.ts"],
+          "sources": ["native/packages/multithreading/src/App.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"\"Total: 14999850000\""},
             {"file":"scripts/verify/probes.mjs","contains":"assert.match(lines[2], /^Processors: [1-9][0-9]*$/u);"}
@@ -367,7 +367,7 @@
         {
           "project": "bcl-todo",
           "level": "runtime",
-          "sources": ["bcl/packages/todolist-api/src/App.ts","bcl/packages/todolist-api/src/JsonHelpers.ts","bcl/packages/todolist-api/src/TodoStore.ts"],
+          "sources": ["native/packages/todolist-api/src/App.ts","native/packages/todolist-api/src/JsonHelpers.ts","native/packages/todolist-api/src/TodoStore.ts"],
           "assertions": [
             {"file":"scripts/verify/probes.mjs","contains":"assert.deepEqual(created, { id: 4, title: \"Airplane grade\", completed: false });"},
             {"file":"scripts/verify/probes.mjs","contains":"assert.deepEqual(await requestJson(task, item, undefined, 404), { error: \"Todo not found\" });"}

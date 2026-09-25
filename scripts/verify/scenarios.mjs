@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { localRepositories, projectSpecs, repoRoot } from "./config.mjs";
+import { localRepositories, projectSpecs, repoRoot, workspaceSpecs } from "./config.mjs";
 
 const tooling = await import(pathToFileURL(resolve(localRepositories.tsonic, "test/scripts/proof-scenarios.mjs")).href);
 export const { createScenarioReport, inspectScenarioArguments, summarizeScenarioReport } = tooling;
 
 export async function loadScenarios(root, projectFiles) {
+  tooling.validateProofWorkspaceFamilies(workspaceSpecs, ["aspnetcore"]);
   const manifest = JSON.parse(await readFile(resolve(root, "scripts/verify/scenarios.json"), "utf8"));
   assert.equal(manifest.suite, "csharp");
   return tooling.validateScenarios({
