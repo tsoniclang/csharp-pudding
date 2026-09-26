@@ -3,13 +3,13 @@ import { verifyPointerViews } from "./pointer-views.js";
 import { verifyNativeMemory } from "./native-memory.js";
 import { verifyAttributes } from "./attributes.js";
 import {
-  addressOf,
-  allocatePointer,
-  defaultValue,
-  equalPointer,
+  addressof,
+  allocateptr,
+  defaultvalue,
+  equalptr,
   field,
-  loadPointer,
-  storePointer,
+  loadptr,
+  storeptr,
   struct,
 } from "@tsonic/core/lang.js";
 import type { int32, Pointer } from "@tsonic/core/types.js";
@@ -20,20 +20,20 @@ export const Pair = struct({
 });
 
 function increment(pointer: Pointer<int32>): void {
-  storePointer(pointer, loadPointer(pointer) + 1);
+  storeptr(pointer, loadptr(pointer) + 1);
 }
 
 function create(initial: int32): Pointer<int32> {
-  return allocatePointer<int32>(initial);
+  return allocateptr<int32>(initial);
 }
 
 function updatePair(): int32 {
-  let pair: typeof Pair = defaultValue<typeof Pair>();
+  let pair: typeof Pair = defaultvalue<typeof Pair>();
   pair.left = 1;
-  const first = addressOf(pair.left);
-  const second = addressOf(pair.left);
-  storePointer(first, 3);
-  return equalPointer(first, second) ? loadPointer(second) : pair.right;
+  const first = addressof(pair.left);
+  const second = addressof(pair.left);
+  storeptr(first, 3);
+  return equalptr(first, second) ? loadptr(second) : pair.right;
 }
 
 export function main(): void {
@@ -41,25 +41,25 @@ export function main(): void {
   if (!verifyPointerViews()) throw new InvalidOperationException("pointer view contract failed");
   if (!verifyNativeMemory()) throw new InvalidOperationException("native memory contract failed");
   let local: int32 = 1;
-  const alias = addressOf(local);
+  const alias = addressof(local);
   increment(alias);
 
   const allocated = create(40);
   const independent = create(10);
   increment(allocated);
 
-  const aliasIdentity = equalPointer(alias, addressOf(local));
-  const allocationIdentity = equalPointer(allocated, independent);
-  const missingIdentity = equalPointer<int32>(undefined, undefined);
+  const aliasIdentity = equalptr(alias, addressof(local));
+  const allocationIdentity = equalptr(allocated, independent);
+  const missingIdentity = equalptr<int32>(undefined, undefined);
 
   const values: int32[] = [3, 5];
-  const element = addressOf(values[0]);
-  const elementIdentity = equalPointer(element, addressOf(values[0]));
-  const otherElementIdentity = equalPointer(element, addressOf(values[1]));
-  storePointer(element, 4);
+  const element = addressof(values[0]);
+  const elementIdentity = equalptr(element, addressof(values[0]));
+  const otherElementIdentity = equalptr(element, addressof(values[1]));
+  storeptr(element, 4);
 
   Console.WriteLine(
-    `Pointers: ${local}, ${loadPointer(allocated)}, ${loadPointer(independent)}, ${values[0]}`,
+    `Pointers: ${local}, ${loadptr(allocated)}, ${loadptr(independent)}, ${values[0]}`,
   );
   Console.WriteLine(
     `Pointer identity: ${aliasIdentity}, ${allocationIdentity}, ${missingIdentity}, ${elementIdentity}, ${otherElementIdentity}`,

@@ -1,8 +1,8 @@
 import {
-  loadNativePointer,
-  offsetNativePointer,
-  storeNativePointer,
-  unsafeContext,
+  loadnativeptr,
+  offsetnativeptr,
+  storenativeptr,
+  unsafecontext,
 } from "@tsonic/core/lang.js";
 import type {
   NativePointer,
@@ -15,9 +15,9 @@ export function copyAndRead(
   destination: NativePointer<int32>,
   elementOffset: nativeInt,
 ): int32 {
-  unsafeContext();
-  const selected = offsetNativePointer(source, elementOffset);
-  const value = loadNativePointer(selected);
-  storeNativePointer(destination, value);
+  unsafecontext();
+  const selected = offsetnativeptr(source, elementOffset);
+  const value = loadnativeptr(selected);
+  storenativeptr(destination, value);
   return value;
 }
