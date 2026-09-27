@@ -1,11 +1,11 @@
 import {
-  bindPointer,
-  equalPointer,
-  hashPointer,
-  keepAlive,
-  loadPointer,
-  projectPointer,
-  storePointer,
+  bindptr,
+  equalptr,
+  hashptr,
+  keepalive,
+  loadptr,
+  projectptr,
+  storeptr,
 } from "@tsonic/core/lang.js";
 import type { int32 } from "@tsonic/core/types.js";
 
@@ -18,29 +18,29 @@ export function verifyPointerViews(): boolean {
   let value: int32 = 3;
   let reads: int32 = 0;
   let writes: int32 = 0;
-  const pointer = bindPointer<int32>(
+  const pointer = bindptr<int32>(
     identity,
     () => { reads++; return value; },
     next => { writes++; value = next; },
   );
-  const alias = bindPointer<int32>(identity, () => value, next => { value = next; });
-  const shifted = projectPointer<int32, int32>(pointer, next => next + 1, next => next - 1);
-  const missing = projectPointer<int32, int32>(
+  const alias = bindptr<int32>(identity, () => value, next => { value = next; });
+  const shifted = projectptr<int32, int32>(pointer, next => next + 1, next => next - 1);
+  const missing = projectptr<int32, int32>(
     undefined,
     next => { reads++; return next; },
     next => { writes++; return next; },
   );
-  if (!same(reads, 0) || !same(writes, 0) || missing !== undefined || hashPointer<int32>(undefined) !== 0) return false;
-  if (!equalPointer(pointer, alias) || !equalPointer(pointer, shifted)) return false;
-  if (hashPointer(pointer) !== hashPointer(alias) || hashPointer(pointer) !== hashPointer(shifted)) return false;
-  if (loadPointer(shifted) !== 4) return false;
-  storePointer(shifted, 10);
-  if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadPointer(alias) !== 9) return false;
-  const flag = projectPointer<int32, boolean>(pointer, next => next !== 0, next => next ? 1 : 0);
-  if (hashPointer(flag) !== hashPointer(pointer)) return false;
-  storePointer(flag, false);
-  if (!same(value, 0) || loadPointer(flag)) return false;
-  keepAlive(identity);
+  if (!same(reads, 0) || !same(writes, 0) || missing !== undefined || hashptr<int32>(undefined) !== 0) return false;
+  if (!equalptr(pointer, alias) || !equalptr(pointer, shifted)) return false;
+  if (hashptr(pointer) !== hashptr(alias) || hashptr(pointer) !== hashptr(shifted)) return false;
+  if (loadptr(shifted) !== 4) return false;
+  storeptr(shifted, 10);
+  if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadptr(alias) !== 9) return false;
+  const flag = projectptr<int32, boolean>(pointer, next => next !== 0, next => next ? 1 : 0);
+  if (hashptr(flag) !== hashptr(pointer)) return false;
+  storeptr(flag, false);
+  if (!same(value, 0) || loadptr(flag)) return false;
+  keepalive(identity);
   return true;
 }
 
