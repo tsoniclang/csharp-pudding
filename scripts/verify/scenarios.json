@@ -214,8 +214,8 @@
           "sources": ["native/packages/hello-world/src/App.ts","native/packages/hello-world/src/pointer-views.ts"],
           "assertions": [
             {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyPointerViews()) throw new InvalidOperationException(\"pointer view contract failed\");"},
-            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadPointer(alias) !== 9) return false;"},
-            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 0) || loadPointer(flag)) return false;"}
+            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 9) || !same(reads, 1) || !same(writes, 1) || loadptr(alias) !== 9) return false;"},
+            {"file":"native/packages/hello-world/src/pointer-views.ts","contains":"if (!same(value, 0) || loadptr(flag)) return false;"}
           ],
           "outcome": "The reached boolean verifier rejects eager callbacks, identity/hash drift or incorrect writes."
         }
@@ -232,9 +232,9 @@
           "sources": ["native/packages/hello-world/src/App.ts","native/packages/hello-world/src/native-memory.ts","native/packages/memory-abi/index.mjs"],
           "assertions": [
             {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
-            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalPointer(original, restored) || hashPointer(original) !== hashPointer(restored)) return false;"},
-            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (incoming !== 71 || loadPointer(parameter) !== 73) return false;"},
-            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalRawPointer(nil, undefined) || reinterpretRawPointer(nil, word) !== undefined) return false;"}
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalptr(original, restored) || hashptr(original) !== hashptr(restored)) return false;"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (incoming !== 71 || loadptr(parameter) !== 73) return false;"},
+            {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!equalrawptr(nil, undefined) || reinterpretrawptr(nil, word) !== undefined) return false;"}
           ],
           "outcome": "Reached verifier checks writes 9/17/33, retained allocation and field/array replacements, parameter 71/73, optional returns and null raw pointers."
         }
@@ -252,8 +252,8 @@
           "assertions": [
             {"file":"native/packages/hello-world/src/App.ts","contains":"if (!verifyNativeMemory()) throw new InvalidOperationException(\"native memory contract failed\");"},
             {"file":"native/packages/hello-world/src/native-memory.ts","contains":"if (!callableReturns() || !verifyNativeStorage()) return false;"},
-            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"if (neighbor === undefined || loadPointer(neighbor) !== 8) throw new Error(\"array stride\");"},
-            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"return loadPointer(element) === 21 && loadPointer(field) === 22;"}
+            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"if (neighbor === undefined || loadptr(neighbor) !== 8) throw new Error(\"array stride\");"},
+            {"file":"native/packages/hello-world/src/native-storage.ts","contains":"return loadptr(element) === 21 && loadptr(field) === 22;"}
           ],
           "outcome": "Stride 8 selects neighbor 8; retained element/field writes end at 21 and 22."
         }
