@@ -1,7 +1,7 @@
 import { attribute } from "@tsonic/core/lang.js";
 import type { int32 } from "@tsonic/core/types.js";
-import { DebuggerDisplayAttribute, DebuggerStepThroughAttribute } from "@tsonic/dotnet/System/Diagnostics.js";
-import { InAttribute } from "@tsonic/dotnet/System/Runtime/InteropServices.js";
+import { DebuggerDisplayAttribute, DebuggerStepThroughAttribute } from "@tsonic/dotnet/System.Diagnostics.js";
+import { InAttribute } from "@tsonic/dotnet/System.Runtime.InteropServices.js";
 
 class Counter {
   value: int32;
